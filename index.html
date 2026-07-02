@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <link rel="icon" type="image/svg+xml" href="./pfp.png" />
+  <title>TOJADENIS | BONUS VAVADA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bone: #f0ece6;
+      --color-toxic: #e63946;
+      --color-toxic-light: #ff6b7a;
+      --color-toxic-dark: #b71c2c;
+      --color-rose: #e8b4b8;
+      --color-silver: #c0c0c8;
+      --color-deep-dark: #0a0a12;
+      --color-card-bg: rgba(10, 10, 18, 0.85);
+      --color-border-dash: rgba(230, 57, 70, 0.4);
+      --font-size-heading: clamp(1.1rem, 5vw, 2.2rem);
+      --bg-main: #0a0a12;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+      scroll-behavior: smooth;
+      background: var(--bg-main);
+    }
+
+    body {
+      background: var(--bg-main);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      padding-top: 0;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 30% 40%, rgba(230, 57, 70, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 80%, rgba(180, 50, 70, 0.08) 0%, transparent 45%),
+        linear-gradient(180deg, #0a0a12 0%, #120a0e 40%, #0a0a12 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 30px 30px, rgba(230, 57, 70, 0.025) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       CZĄSTECZKI (CANVAS) - GŁÓWNE TŁO
+       ============================================================ */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       CZĄSTECZKI (CANVAS) - MODAL 18+
+       ============================================================ */
+    #modal-particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 19999;
+      pointer-events: none;
+      display: block;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 30% 40%, rgba(230, 57, 70, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 80%, rgba(180, 50, 70, 0.10) 0%, transparent 45%),
+        linear-gradient(180deg, #0a0a12 0%, #120a0e 40%, #0a0a12 100%);
+      animation: gradientShift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background: 
+          radial-gradient(ellipse at 30% 40%, rgba(230, 57, 70, 0.15) 0%, transparent 55%),
+          radial-gradient(ellipse at 70% 80%, rgba(180, 50, 70, 0.10) 0%, transparent 45%),
+          linear-gradient(180deg, #0a0a12 0%, #120a0e 40%, #0a0a12 100%);
+      }
+      50% {
+        background: 
+          radial-gradient(ellipse at 60% 30%, rgba(230, 57, 70, 0.18) 0%, transparent 50%),
+          radial-gradient(ellipse at 20% 70%, rgba(200, 60, 80, 0.12) 0%, transparent 45%),
+          linear-gradient(180deg, #0a0a12 0%, #1a0a12 40%, #0a0a12 100%);
+      }
+      100% {
+        background: 
+          radial-gradient(ellipse at 20% 60%, rgba(230, 57, 70, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 30%, rgba(200, 50, 70, 0.15) 0%, transparent 45%),
+          linear-gradient(180deg, #0a0a12 0%, #120a0e 40%, #0a0a12 100%);
+      }
+    }
+
+    /* ============================================================
+       GLASS NAV
+       ============================================================ */
+    .glass-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10000;
+      background: rgba(10, 10, 18, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(230, 57, 70, 0.25);
+      padding: 0.7rem 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-img {
+      height: 36px;
+      width: auto;
+      filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.4));
+      transition: transform 0.2s ease;
+    }
+
+    .nav-logo-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(255, 255, 255, 0.05),
+        0 0 60px rgba(230, 57, 70, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo-text:hover {
+      text-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.25),
+        0 0 60px rgba(230, 57, 70, 0.15);
+      transform: scale(1.02);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #c8c0c8;
+      text-decoration: none;
+      padding: 0.4rem 0.6rem;
+      border-radius: 40px;
+      transition: all 0.25s ease;
+      position: relative;
+      background: transparent;
+      white-space: nowrap;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #e63946, #e8b4b8);
+      transition: width 0.25s ease;
+      border-radius: 2px;
+    }
+
+    .nav-link:hover {
+      color: #e8b4b8;
+      text-shadow: 0 0 8px rgba(232, 180, 184, 0.3);
+    }
+
+    .nav-link:hover::after {
+      width: 70%;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #e63946, #b71c2c);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      color: white !important;
+      font-weight: 700;
+      font-size: 0.65rem;
+      box-shadow: 0 2px 15px rgba(230, 57, 70, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 1px;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(230, 57, 70, 0.5);
+      color: white !important;
+    }
+
+    .nav-cta::after {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: rgba(230, 57, 70, 0.12);
+      border: 1px solid rgba(230, 57, 70, 0.4);
+      border-radius: 50px;
+      padding: 0.4rem 0.9rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #e63946;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 10002;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       MOBILE MENU - SLIDE DOWN
+       ============================================================ */
+    @media (max-width: 880px) {
+      .glass-nav {
+        padding: 0.6rem 1rem;
+      }
+      .nav-container {
+        gap: 0.5rem;
+      }
+      .nav-logo-img {
+        height: 30px;
+      }
+      .nav-logo-text {
+        font-size: 1rem;
+      }
+      .menu-toggle {
+        display: block;
+        font-size: 0.7rem;
+        padding: 0.35rem 0.8rem;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        background: rgba(10, 10, 18, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 1.2rem;
+        gap: 0;
+        border-bottom: none;
+        border-top: 1px solid rgba(230, 57, 70, 0.12);
+        transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        z-index: 10001;
+        box-shadow: none;
+        border-radius: 0;
+        pointer-events: none;
+      }
+
+      .nav-links.open {
+        height: auto;
+        max-height: 80vh;
+        padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+        opacity: 1;
+        pointer-events: all;
+        border-bottom: 2px solid rgba(230, 57, 70, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .nav-link {
+        font-size: 0.85rem;
+        width: 100%;
+        text-align: center;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        white-space: normal;
+      }
+
+      .nav-links.open .nav-link {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .nav-links.open .nav-link:nth-child(1) { transition-delay: 0.05s; }
+      .nav-links.open .nav-link:nth-child(2) { transition-delay: 0.10s; }
+      .nav-links.open .nav-link:nth-child(3) { transition-delay: 0.15s; }
+      .nav-links.open .nav-link:nth-child(4) { transition-delay: 0.20s; }
+
+      .nav-link:last-child {
+        border-bottom: none;
+      }
+
+      .nav-cta {
+        font-size: 0.8rem;
+        padding: 0.6rem 1.2rem;
+        width: 100%;
+        text-align: center;
+        margin-top: 0.2rem;
+      }
+
+      .menu-toggle.active {
+        background: rgba(230, 57, 70, 0.2);
+        border-color: #e8b4b8;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .glass-nav {
+        padding: 0.5rem 0.8rem;
+      }
+      .nav-logo-img {
+        height: 26px;
+      }
+      .nav-logo-text {
+        font-size: 0.85rem;
+      }
+      .nav-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.5rem;
+        letter-spacing: 1px;
+      }
+      .nav-cta {
+        font-size: 0.6rem;
+        padding: 0.3rem 0.8rem;
+      }
+      .menu-toggle {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.7rem;
+      }
+      .nav-links {
+        top: 52px;
+      }
+      .nav-links.open {
+        padding: 1rem 1rem 1.2rem 1rem;
+      }
+      .nav-link {
+        font-size: 0.8rem;
+        padding: 0.6rem 0;
+      }
+    }
+
+    /* ============================================================
+       AGE MODAL
+       ============================================================ */
+    .age-verification-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 18, 0.94);
+      backdrop-filter: blur(20px);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .age-verification-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .age-verification-modal.hidden #modal-particles-canvas {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .age-modal-card {
+      position: relative;
+      z-index: 20001;
+      background: linear-gradient(145deg, rgba(18, 10, 14, 0.98), rgba(0, 0, 0, 0.96));
+      border: 2px solid rgba(230, 57, 70, 0.5);
+      border-radius: 40px;
+      padding: 2rem 1.5rem;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(230, 57, 70, 0.15) inset, 0 0 40px rgba(230, 57, 70, 0.1);
+      animation: modalGlow 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    @keyframes modalGlow {
+      0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .age-title { font-size: clamp(1.6rem, 7vw, 2.8rem); font-weight: 900; background: linear-gradient(135deg, #e63946, #e8b4b8); background-clip: text; -webkit-background-clip: text; color: transparent; letter-spacing: 2px; margin-bottom: 0.8rem; text-transform: uppercase; }
+    .age-sub { color: #e8b4b8; font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 1px; }
+    .age-divider { width: 70px; height: 3px; background: linear-gradient(90deg, #e63946, #e8b4b8); margin: 0.6rem auto 1rem; border-radius: 4px; }
+    .age-text { font-size: 0.85rem; color: #b8b0b8; margin-bottom: 1.8rem; line-height: 1.5; padding: 0 0.5rem; }
+    .age-text strong { color: #e63946; }
+    .age-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .age-btn { padding: 0.8rem 1.8rem; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 0.8rem; letter-spacing: 1.5px; border: none; border-radius: 60px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; }
+    .age-btn-yes { background: linear-gradient(135deg, #e63946, #b71c2c); color: white; box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4); }
+    .age-btn-yes:hover { transform: translateY(-3px); background: linear-gradient(135deg, #ff6b7a, #c91a2c); box-shadow: 0 10px 30px rgba(230, 57, 70, 0.6); }
+    .age-btn-no { background: rgba(255, 255, 255, 0.04); color: #b8b0b8; border: 1px solid rgba(230, 57, 70, 0.3); }
+    .age-btn-no:hover { background: rgba(230, 57, 70, 0.12); border-color: #e63946; color: #fff; transform: translateY(-2px); }
+
+    @media (max-width: 480px) {
+      .age-modal-card {
+        padding: 1.5rem 1.2rem;
+        border-radius: 32px;
+      }
+      .age-title { font-size: 1.6rem; }
+      .age-sub { font-size: 0.75rem; }
+      .age-text { font-size: 0.75rem; }
+      .age-btn { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
+    }
+
+    .font-display { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    .text-bone { color: var(--color-bone); }
+    .text-toxic { background: linear-gradient(135deg, #e63946, #e8b4b8); background-clip: text; -webkit-background-clip: text; color: transparent; }
+
+    /* ============================================================
+       BANNER - box bonusowy usunięty
+       ============================================================ */
+    .banner-section { 
+      position: relative; 
+      width: 100%; 
+      z-index: 3; 
+      overflow: hidden; 
+      margin-top: 0; 
+      line-height: 0; 
+    }
+    .banner-wrapper { 
+      width: 100%; 
+      display: flex; 
+      justify-content: center; 
+      background: transparent; 
+      line-height: 0; 
+      position: relative; 
+      z-index: 4; 
+    }
+    .banner-image { 
+      width: 100%; 
+      height: auto; 
+      display: block; 
+      object-fit: contain; 
+      max-width: 100%; 
+      filter: drop-shadow(0 10px 30px rgba(230, 57, 70, 0.12));
+      margin: 0;
+      padding: 0;
+    }
+    @media (max-width: 768px) {
+      .banner-section {
+        margin-top: 56px;
+      }
+    }
+    @media (max-width: 480px) {
+      .banner-section {
+        margin-top: 48px;
+      }
+    }
+
+    .section-divider {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.8rem 1rem 0.3rem 1rem;
+      gap: 1rem;
+    }
+
+    .divider-line {
+      flex: 1;
+      max-width: 150px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.25), transparent);
+    }
+
+    .divider-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #e8b4b8;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      opacity: 0.6;
+    }
+
+    .divider-icon .diamond {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(135deg, #e63946, #e8b4b8);
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 550px) {
+      .section-divider {
+        padding: 1.2rem 0.8rem 0.2rem 0.8rem;
+        gap: 0.8rem;
+      }
+      .divider-line {
+        max-width: 60px;
+      }
+      .divider-icon {
+        font-size: 0.5rem;
+        letter-spacing: 2px;
+        gap: 0.4rem;
+      }
+      .divider-icon .diamond {
+        width: 5px;
+        height: 5px;
+      }
+    }
+
+    /* ============================================================
+       MAIN CONTENT - BONUS
+       ============================================================ */
+    .main-content { 
+      position: relative; 
+      z-index: 10; 
+      padding: 0.3rem 0.8rem 1.2rem 0.8rem; 
+      min-height: auto; 
+      max-width: 100%; 
+      overflow-x: hidden; 
+    }
+    .dashed-box { 
+      opacity: 1; 
+      background: rgba(10, 10, 18, 0.82); 
+      background-image: url("./ruletka.png"); 
+      background-size: 100% 100%; 
+      backdrop-filter: blur(16px); 
+      border-radius: 2rem; 
+      padding: 1.5rem 1.2rem; 
+      margin-bottom: 0; 
+      border: 1px solid rgba(230, 57, 70, 0.2); 
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(230, 57, 70, 0.04) inset, 0 0 30px rgba(230, 57, 70, 0.03); 
+    }
+    .dashed-box, .dashed-box *:not(.logo-svg):not(.no-upper) { text-transform: uppercase; }
+    .logo-mini { display: flex; justify-content: center; margin-bottom: 1.2rem; position: relative; }
+    .vavada-logo-img { max-width: 200px; width: 100%; height: auto; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.8)) drop-shadow(0 0 18px rgba(230, 57, 70, 0.2)); transition: all 0.3s ease; }
+    .logo-mini:hover .vavada-logo-img { filter: drop-shadow(0 8px 22px rgba(0,0,0,0.9)) drop-shadow(0 0 30px rgba(230, 57, 70, 0.35)); transform: scale(1.02); }
+    @media (max-width: 550px) { 
+      .vavada-logo-img { max-width: 150px; } 
+      .dashed-box { padding: 1.2rem 0.8rem; border-radius: 1.5rem; }
+      .logo-mini { margin-bottom: 0.8rem; }
+    }
+    .custom-heading { 
+      font-size: var(--font-size-heading); 
+      text-align: center; 
+      line-height: 1.3; 
+      letter-spacing: -0.01em; 
+      margin-bottom: 1rem; 
+      font-weight: 800; 
+      max-width: 100%; 
+      word-break: break-word; 
+    }
+    @media (max-width: 480px) {
+      .custom-heading { font-size: 1rem; }
+    }
+    .main-action-wrapper { display: flex; justify-content: center; margin: 1.2rem 0 0.3rem; }
+    .main-bonus-button { 
+      display: inline-block; 
+      border: none; 
+      background: linear-gradient(135deg, #e63946, #b71c2c); 
+      color: #ffffff; 
+      padding: 0.9rem 1.8rem; 
+      font-family: 'Inter', sans-serif; 
+      font-size: 0.9rem; 
+      font-weight: 800; 
+      text-transform: uppercase; 
+      letter-spacing: 0.15em; 
+      transition: all 0.3s ease; 
+      cursor: pointer; 
+      width: auto; 
+      min-width: 220px; 
+      text-align: center; 
+      border-radius: 60px; 
+      box-shadow: 0 8px 25px rgba(230, 57, 70, 0.3); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .main-bonus-button::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: -100%; 
+      width: 100%; 
+      height: 100%; 
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); 
+      transition: left 0.5s ease; 
+    }
+    .main-bonus-button:hover { 
+      transform: translateY(-3px) scale(1.02); 
+      background: linear-gradient(135deg, #ff6b7a, #c91a2c); 
+      box-shadow: 0 12px 35px rgba(230, 57, 70, 0.5); 
+    }
+    .main-bonus-button:hover::before { left: 100%; }
+    @media (max-width: 550px) {
+      .main-bonus-button { 
+        min-width: 180px; 
+        font-size: 0.75rem; 
+        padding: 0.7rem 1.2rem; 
+        letter-spacing: 0.12em;
+      }
+    }
+    .bonus-code-display { text-align: center; margin: 0.8rem 0 0.3rem; }
+    .code-pill {
+      display: inline-block;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(232, 180, 184, 0.35);
+      border-radius: 60px;
+      padding: 0.4rem 1.2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #e8b4b8;
+      text-shadow: 0 0 6px rgba(232, 180, 184, 0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      animation: pulseCode 0.8s ease-in-out infinite alternate;
+    }
+    .code-pill:hover {
+      background: rgba(232, 180, 184, 0.15);
+      color: #ffffff;
+      transform: scale(1.02);
+      border-color: #e8b4b8;
+      box-shadow: 0 0 25px rgba(232, 180, 184, 0.15);
+      animation: none;
+    }
+    @keyframes pulseCode {
+      0% { transform: scale(1); border-color: rgba(232, 180, 184, 0.25); }
+      100% { transform: scale(1.02); border-color: rgba(232, 180, 184, 0.6); }
+    }
+    @media (max-width: 550px) {
+      .code-pill { font-size: 0.7rem; padding: 0.3rem 0.8rem; letter-spacing: 1px; }
+    }
+    .copy-feedback-mini { font-size: 0.65rem; color: #b0a8b0; text-align: center; margin-top: 0.3rem; height: 18px; }
+
+    /* ============================================================
+       SEKCJA KICK
+       ============================================================ */
+    .kick-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 1.5rem auto 1rem;
+      padding: 0 0.8rem;
+    }
+
+    .kick-card {
+      background: rgba(10, 10, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      padding: 1.8rem 1.2rem 1.5rem;
+      border: 1px solid rgba(230, 57, 70, 0.2);
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(230, 57, 70, 0.04) inset;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kick-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(230, 57, 70, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .kick-card:hover {
+      border-color: rgba(230, 57, 70, 0.4);
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.9), 0 0 30px rgba(230, 57, 70, 0.04);
+    }
+
+    .kick-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .kick-logo-svg {
+      height: 36px;
+      width: auto;
+      filter: drop-shadow(0 0 12px rgba(230, 57, 70, 0.15));
+      transition: transform 0.3s ease;
+    }
+
+    .kick-card:hover .kick-logo-svg {
+      transform: scale(1.05);
+    }
+
+    .kick-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    .kick-title span {
+      color: #e8b4b8;
+    }
+
+    .stream-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+      padding: 0.35rem 1.2rem;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+
+    .status-dot.live {
+      background: #00ff88;
+      box-shadow: 0 0 14px rgba(0, 255, 136, 0.4);
+    }
+
+    .status-dot.offline {
+      background: #555;
+      animation: none;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .status-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .status-text.live {
+      color: #00ff88;
+    }
+
+    .status-text.offline {
+      color: #777;
+    }
+
+    .kick-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, #e63946, #b71c2c);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 60px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(230, 57, 70, 0.25);
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kick-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: linear-gradient(135deg, #ff6b7a, #c91a2c);
+      box-shadow: 0 12px 35px rgba(230, 57, 70, 0.4);
+    }
+
+    .kick-btn .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .kick-btn:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    .kick-embed-wrapper {
+      margin-top: 1.2rem;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      display: none;
+      aspect-ratio: 16/9;
+      max-width: 100%;
+      border: 1px solid rgba(230, 57, 70, 0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    .kick-embed-wrapper.active {
+      display: block;
+    }
+
+    .kick-embed-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .toggle-embed-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #888098;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .toggle-embed-btn:hover {
+      background: rgba(230, 57, 70, 0.1);
+      border-color: rgba(230, 57, 70, 0.25);
+      color: #e8b4b8;
+    }
+
+    .kick-disclaimer {
+      font-size: 0.5rem;
+      color: #4a4250;
+      margin-top: 1rem;
+      letter-spacing: 0.5px;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .kick-card {
+        padding: 1.5rem 1rem 1.2rem;
+        border-radius: 1.5rem;
+      }
+      .kick-title {
+        font-size: 1rem;
+      }
+      .kick-logo-svg {
+        height: 30px;
+      }
+      .kick-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.75rem;
+      }
+      .stream-status {
+        padding: 0.25rem 1rem;
+      }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+      }
+      .status-text {
+        font-size: 0.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .kick-section {
+        padding: 0 0.6rem;
+        margin: 1rem auto 0.5rem;
+      }
+      .kick-card {
+        padding: 1.2rem 0.8rem 1rem;
+        border-radius: 1.2rem;
+      }
+      .kick-header {
+        gap: 0.5rem;
+      }
+      .kick-logo-svg {
+        height: 26px;
+      }
+      .kick-title {
+        font-size: 0.85rem;
+      }
+      .kick-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.6rem 1rem;
+        font-size: 0.7rem;
+        gap: 0.4rem;
+      }
+      .toggle-embed-btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.55rem;
+        padding: 0.35rem 1rem;
+      }
+      .stream-status {
+        padding: 0.2rem 0.8rem;
+        gap: 0.4rem;
+        margin-bottom: 0.8rem;
+      }
+      .status-dot {
+        width: 7px;
+        height: 7px;
+      }
+      .status-text {
+        font-size: 0.55rem;
+      }
+      .kick-embed-wrapper {
+        border-radius: 10px;
+        margin-top: 0.8rem;
+      }
+      .kick-disclaimer {
+        font-size: 0.45rem;
+        margin-top: 0.7rem;
+      }
+    }
+
+    /* ============================================================
+       STOPKA
+       ============================================================ */
+    .footer-new {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(10, 10, 18, 0.98) 0%, rgba(0, 0, 0, 0.99) 100%);
+      border-top: 2px solid rgba(230, 57, 70, 0.2);
+      padding: 2rem 1rem 1.2rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .footer-new::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      max-width: 300px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e8b4b8, #e63946, #e8b4b8, transparent);
+      border-radius: 2px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-links-center {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .footer-links-center a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888098;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .footer-links-center a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #e63946, #e8b4b8);
+      transition: width 0.25s ease;
+      border-radius: 2px;
+    }
+
+    .footer-links-center a:hover {
+      color: #e8b4b8;
+    }
+
+    .footer-links-center a:hover::after {
+      width: 60%;
+    }
+
+    .footer-middle {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .footer-payments {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .payment-badge {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.55rem;
+      font-weight: 500;
+      color: #686078;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-certificates {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .cert-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.5rem;
+      color: #686078;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .cert-badge .cert-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #e63946;
+      opacity: 0.4;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.2rem;
+      gap: 0.8rem;
+    }
+
+    .footer-copyright {
+      font-size: 0.5rem;
+      color: #4a4250;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-copyright a {
+      color: #686078;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-copyright a:hover {
+      color: #e8b4b8;
+    }
+
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-legal .age-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: #e8b4b8;
+      border: 2px solid rgba(230, 57, 70, 0.25);
+      border-radius: 30px;
+      padding: 0.1rem 0.6rem;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-legal .legal-text {
+      font-size: 0.48rem;
+      color: #4a4250;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-legal .legal-text a {
+      color: #686078;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal .legal-text a:hover {
+      color: #e8b4b8;
+    }
+
+    @media (max-width: 600px) {
+      .footer-links-center {
+        gap: 1rem;
+      }
+      .footer-links-center a {
+        font-size: 0.55rem;
+        letter-spacing: 1.2px;
+      }
+      .footer-middle {
+        flex-direction: column;
+        text-align: center;
+        padding: 0.8rem 0;
+      }
+      .footer-payments {
+        justify-content: center;
+      }
+      .footer-certificates {
+        justify-content: center;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 0.8rem;
+      }
+      .footer-legal {
+        justify-content: center;
+      }
+      .footer-new {
+        padding: 1.5rem 0.8rem 1rem;
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-links-center {
+        gap: 0.7rem;
+      }
+      .footer-links-center a {
+        font-size: 0.45rem;
+        letter-spacing: 1px;
+      }
+      .payment-badge {
+        font-size: 0.45rem;
+        padding: 0.15rem 0.5rem;
+      }
+      .cert-badge {
+        font-size: 0.4rem;
+      }
+      .footer-copyright {
+        font-size: 0.4rem;
+      }
+      .footer-legal .age-badge {
+        font-size: 0.5rem;
+        padding: 0.05rem 0.4rem;
+      }
+      .footer-legal .legal-text {
+        font-size: 0.4rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .main-content { padding: 0.5rem 2rem 0.5rem 2rem; max-width: 1100px; margin-left: auto; margin-right: auto; }
+      .main-bonus-button { min-width: 320px; font-size: 1.1rem; padding: 1rem 2.2rem; }
+      .kick-section { padding: 0 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CZĄSTECZKI MODAL 18+
+     ============================================================ -->
+<canvas id="modal-particles-canvas"></canvas>
+
+<!-- ============================================================
+     TŁO Z CZĄSTECZKAMI (GŁÓWNE)
+     ============================================================ -->
+<canvas id="particles-canvas"></canvas>
+<div class="bg-gradient"></div>
+
+<!-- ============================================================
+     AGE MODAL
+     ============================================================ -->
+<div class="age-verification-modal" id="ageModal">
+  <div class="age-modal-card">
+    <div class="age-title">18+</div>
+    <div class="age-sub">TYLKO DLA OSÓB PEŁNOLETNICH</div>
+    <div class="age-divider"></div>
+    <div class="age-text">Potwierdź, że masz ukończone <strong>18 lat</strong>. Hazard wiąże się z ryzykiem. Graj odpowiedzialnie.</div>
+    <div class="age-buttons"><button class="age-btn age-btn-yes" id="confirmAdultBtn">TAK, MAM 18+</button><button class="age-btn age-btn-no" id="denyAdultBtn">NIE, OPUSZCZAM</button></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="glass-nav" id="glassNav">
+  <div class="nav-container">
+    <a href="#" class="nav-logo" id="navLogoLink">
+      <img src="pfp.png" alt="logo" class="nav-logo-img" onerror="this.style.display='none'">
+      <span class="nav-logo-text">TOJADENIS</span>
+    </a>
+    <div class="menu-toggle" id="menuToggle">☰ MENU</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#" class="nav-link" id="navHome">START</a>
+      <a href="#" class="nav-link" id="navBonus">BONUS</a>
+      <a href="#" class="nav-link" id="navKick">KICK</a>
+      <a href="#" class="nav-link nav-cta" id="navCta">ODBIERZ BONUS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     BANNER - box bonusowy usunięty
+     ============================================================ -->
+<div class="banner-section">
+  <div class="banner-wrapper"><img class="banner-image" id="banner-image" src="BG.png" alt="TOJADENIS X VAVADA BANNER"></div>
+</div>
+
+<!-- ============================================================
+     DIVIDER
+     ============================================================ -->
+<div class="section-divider">
+  <span class="divider-line"></span>
+  <span class="divider-icon">
+    <span class="diamond"></span>
+    <span>★ BONUS ★</span>
+    <span class="diamond"></span>
+  </span>
+  <span class="divider-line"></span>
+</div>
+
+<!-- ============================================================
+     MAIN CONTENT - BONUS
+     ============================================================ -->
+<div class="main-content" id="mainContent">
+  <div class="dashed-box">
+    <div class="logo-mini"><img class="vavada-logo-img" src="VAVADA.png" alt="VAVADA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div style="display: none; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #e63946, #e8b4b8); background-clip: text; -webkit-background-clip: text; color: transparent;">VAVADA</div></div>
+    <h1 class="font-display custom-heading text-bone" id="dynamicHeading">20 DARMOWYCH SPINÓW NA SLOCIE <span class="text-toxic">LE BANDIT</span> Z WAGEREM x20</h1>
+    <div class="main-action-wrapper"><button class="main-bonus-button" id="claimMainBtn">ODBIERZ BONUS</button></div>
+    <div class="bonus-code-display"><div class="code-pill" id="copyCodePill">📋 SKOPIUJ KOD : DENIS</div><div class="copy-feedback-mini" id="copyFeedbackCode"></div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SEKCJA KICK
+     ============================================================ -->
+<section class="kick-section" id="kickSection">
+  <div class="kick-card">
+
+    <div class="kick-header">
+      <svg class="kick-logo-svg" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="120" height="40" rx="8" fill="#1a1a2e" />
+        <rect x="2" y="2" width="116" height="36" rx="6" fill="none" stroke="#e63946" stroke-width="1.5" stroke-opacity="0.3" />
+        <text x="12" y="26" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="18" fill="#ffffff" letter-spacing="1">KICK</text>
+        <circle cx="96" cy="20" r="8" fill="#00ff88" opacity="0.15" />
+        <circle cx="96" cy="20" r="5" fill="#00ff88" opacity="0.3" />
+        <circle cx="96" cy="20" r="3" fill="#00ff88" />
+      </svg>
+      <div class="kick-title">DOŁĄCZ DO <span>STREAMU</span></div>
+    </div>
+
+    <div class="stream-status">
+      <span class="status-dot live" id="statusDot"></span>
+      <span class="status-text live" id="statusText">NA ŻYWO</span>
+    </div>
+
+    <a href="https://kick.com/tojadenis" target="_blank" class="kick-btn" id="kickMainBtn">
+      <span>🔴 OGLĄDAJ NA KICK</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <button class="toggle-embed-btn" id="toggleEmbedBtn">
+      <span>📺</span> POKAŻ ODTWARZACZ
+    </button>
+
+    <div class="kick-embed-wrapper" id="kickEmbedWrapper">
+      <iframe 
+        src="https://kick.com/tojadenis/embed" 
+        allowfullscreen 
+        loading="lazy"
+        title="TOJADENIS na Kick.com"
+      ></iframe>
+    </div>
+
+    <p class="kick-disclaimer">
+      Stream na żywo • Dołącz do społeczności • 🔞 18+
+    </p>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     STOPKA
+     ============================================================ -->
+<footer class="footer-new">
+  <div class="footer-inner">
+    <div class="footer-links-center">
+      <a href="#" id="regulationsLink">Regulamin Vavada</a>
+      <a href="#" id="privacyLink">Polityka prywatności</a>
+      <a href="#" id="responsibleLink">Odpowiedzialna gra</a>
+      <a href="#">Bonusy Vavada</a>
+      <a href="#">Kontakt</a>
+    </div>
+
+    <div class="footer-middle">
+      <div class="footer-payments">
+        <span class="payment-badge">💳 Visa</span>
+        <span class="payment-badge">💳 Mastercard</span>
+        <span class="payment-badge">🟢 Skrill</span>
+        <span class="payment-badge">🔵 Neteller</span>
+        <span class="payment-badge">₿ Bitcoin</span>
+        <span class="payment-badge">⚡ Bank transfer</span>
+      </div>
+      <div class="footer-certificates">
+        <span class="cert-badge"><span class="cert-dot"></span> Licencja Curaçao</span>
+        <span class="cert-badge"><span class="cert-dot"></span> SSL Secure</span>
+        <span class="cert-badge"><span class="cert-dot"></span> RNG Certified</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        © 2026 <a href="#">TOJADENIS</a> × <a href="#">VAVADA</a> — Wszelkie prawa zastrzeżone
+      </div>
+      <div class="footer-legal">
+        <span class="age-badge">18+</span>
+        <span class="legal-text">
+          <a href="https://www.begambleaware.org" target="_blank">Begambleaware.org</a>
+          &nbsp;|&nbsp;
+          <a href="https://www.gamcare.org.uk" target="_blank">Gamcare.org.uk</a>
+        </span>
+        <span class="legal-text" style="color:#3a3240;">
+          Hazard wiąże się z ryzykiem
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============================================================
+  // CZĄSTECZKI MODAL 18+
+  // ============================================================
+  (function() {
+    const canvas = document.getElementById('modal-particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const PARTICLE_COUNT = 45;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = (Math.random() - 0.5) * 0.35;
+        this.opacity = Math.random() * 0.25 + 0.08;
+        const colors = ['230, 57, 70', '232, 180, 184', '255, 107, 122'];
+        const c = colors[Math.floor(Math.random() * colors.length)];
+        this.color = `rgba(${c}, `;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > width) this.speedX *= -1;
+        if (this.y < 0 || this.y > height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color + this.opacity + ')';
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      initParticles();
+    });
+
+    resize();
+    initParticles();
+    animate();
+  })();
+
+  // ============================================================
+  // CZĄSTECZKI - GŁÓWNE TŁO
+  // ============================================================
+  (function() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const PARTICLE_COUNT = 70;
+    const CONNECTION_DISTANCE = 110;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2.5 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 0.7;
+        this.speedY = (Math.random() - 0.5) * 0.7;
+        this.opacity = Math.random() * 0.5 + 0.15;
+        const colors = ['230, 57, 70', '232, 180, 184', '255, 107, 122', '200, 60, 80'];
+        const c = colors[Math.floor(Math.random() * colors.length)];
+        this.color = `rgba(${c}, `;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > width) this.speedX *= -1;
+        if (this.y < 0 || this.y > height) this.speedY *= -1;
+
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const dx = centerX - this.x;
+        const dy = centerY - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist > 0) {
+          const force = 0.00004;
+          this.speedX += dx / dist * force * (width / 1000);
+          this.speedY += dy / dist * force * (height / 1000);
+        }
+
+        const maxSpeed = 1.0;
+        const spd = Math.sqrt(this.speedX*this.speedX + this.speedY*this.speedY);
+        if (spd > maxSpeed) {
+          this.speedX = (this.speedX / spd) * maxSpeed;
+          this.speedY = (this.speedY / spd) * maxSpeed;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color + this.opacity + ')';
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < CONNECTION_DISTANCE) {
+            const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(230, 57, 70, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      drawConnections();
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      initParticles();
+    });
+
+    resize();
+    initParticles();
+    animate();
+
+    let mouseX = -1000, mouseY = -1000;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    const originalUpdate = Particle.prototype.update;
+    Particle.prototype.update = function() {
+      originalUpdate.call(this);
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 140 && dist > 0) {
+        const force = (140 - dist) / 140 * 0.25;
+        this.speedX += (dx / dist) * force;
+        this.speedY += (dy / dist) * force;
+      }
+    };
+  })();
+
+  // ============================================================
+  // RESZTA SKRYPTÓW
+  // ============================================================
+  (function() {
+    const BASE_LINK = "https://standarttrack.com/?promo=b91c821c-d4c6-4420-bbae-206703d5456d&target=register";
+    function generateAffiliateLink() { return BASE_LINK.replace(/{REPLACE}/g, Math.random().toString(36).substring(2,12)+Date.now().toString(36)).replace(/{ATP}/g, Date.now().toString()+Math.floor(Math.random()*10000)); }
+    function openAffiliateLink() { window.open(generateAffiliateLink(), '_blank'); }
+    const CODE_TEXT = "DENIS";
+    
+    let isVerified = false;
+    const modal = document.getElementById('ageModal');
+    const confirmBtn = document.getElementById('confirmAdultBtn');
+    const denyBtn = document.getElementById('denyAdultBtn');
+    
+    function hideModalAndEnableSite() { 
+      if(modal){ 
+        modal.classList.add('hidden');
+        setTimeout(()=>{ modal.style.display = 'none'; }, 500);
+      } 
+      isVerified = true; 
+    }
+    
+    function redirectAway() { window.location.href = 'https://www.google.com'; }
+    if(confirmBtn) confirmBtn.addEventListener('click', hideModalAndEnableSite);
+    if(denyBtn) denyBtn.addEventListener('click', redirectAway);
+    
+    const copyPill = document.getElementById('copyCodePill');
+    const feedbackElement = document.getElementById('copyFeedbackCode');
+    if(copyPill){
+      copyPill.addEventListener('click', async(e)=>{
+        if(!isVerified) return;
+        e.stopPropagation();
+        copyPill.style.transform = 'scale(0.95)';
+        setTimeout(()=>{ if(copyPill) copyPill.style.transform = ''; }, 150);
+        try{ 
+          await navigator.clipboard.writeText(CODE_TEXT); 
+          if(feedbackElement){ 
+            feedbackElement.innerHTML = '✅ KOD DENIS SKOPIOWANY!'; 
+            feedbackElement.style.color = '#a5d8b0'; 
+          } 
+          setTimeout(()=>{ 
+            if(feedbackElement){ 
+              feedbackElement.innerHTML = ''; 
+              feedbackElement.style.color = '#b0a8b0'; 
+            } 
+          }, 2000); 
+        } catch(err){ 
+          if(feedbackElement){ 
+            feedbackElement.innerHTML = '⚠️ NIE UDALO SIE SKOPIOWAC'; 
+            feedbackElement.style.color = '#e63946'; 
+          } 
+          setTimeout(()=>{ 
+            if(feedbackElement){ 
+              feedbackElement.innerHTML = ''; 
+              feedbackElement.style.color = '#b0a8b0'; 
+            } 
+          }, 1800); 
+        }
+      });
+    }
+    
+    const claimMain = document.getElementById('claimMainBtn'); 
+    if(claimMain) claimMain.addEventListener('click', (e)=>{ e.preventDefault(); if(isVerified) openAffiliateLink(); });
+    
+    const vavadaLogo = document.querySelector('.vavada-logo-img');
+    if(vavadaLogo) vavadaLogo.addEventListener('error', function(){ 
+      this.style.display = 'none'; 
+      const fallback = this.nextElementSibling; 
+      if(fallback) fallback.style.display = 'flex'; 
+    });
+    
+    if(window.innerWidth > 768){ 
+      const bannerImg = document.getElementById('banner-image'); 
+      if(bannerImg) bannerImg.src = "./BG_pc.png"; 
+      const cardImg = document.querySelector('.dashed-box'); 
+      if(cardImg) cardImg.style.backgroundImage = "url('./ruletka_pc.png')"; 
+    }
+    
+    const headingEl = document.getElementById('dynamicHeading');
+    if(headingEl) headingEl.innerHTML = '20 DARMOWYCH SPINÓW NA SLOCIE <span class="text-toxic">LE BANDIT</span> Z WAGEREM x20';
+    
+    // MENU MOBILNE
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if(menuToggle && navLinks) {
+      menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle('open');
+        this.classList.toggle('active');
+        if (navLinks.classList.contains('open')) {
+          this.textContent = '✕ ZAMKNIJ';
+        } else {
+          this.textContent = '☰ MENU';
+        }
+      });
+
+      const allNavLinks = document.querySelectorAll('.nav-link');
+      allNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('open');
+          menuToggle.classList.remove('active');
+          menuToggle.textContent = '☰ MENU';
+        });
+      });
+
+      document.addEventListener('click', function(e) {
+        if (navLinks.classList.contains('open')) {
+          const isClickInside = navLinks.contains(e.target) || menuToggle.contains(e.target);
+          if (!isClickInside) {
+            navLinks.classList.remove('open');
+            menuToggle.classList.remove('active');
+            menuToggle.textContent = '☰ MENU';
+          }
+        }
+      });
+    }
+
+    // NAWIGACJA
+    document.getElementById('navHome')?.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); });
+    document.getElementById('navBonus')?.addEventListener('click', (e) => { e.preventDefault(); const bonusSection = document.querySelector('.dashed-box'); if(bonusSection) bonusSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    document.getElementById('navKick')?.addEventListener('click', (e) => { e.preventDefault(); const kickSection = document.getElementById('kickSection'); if(kickSection) kickSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    
+    const navCta = document.getElementById('navCta');
+    if(navCta) navCta.addEventListener('click', (e) => { e.preventDefault(); if(isVerified) openAffiliateLink(); });
+    
+    const navLogoLink = document.getElementById('navLogoLink');
+    if(navLogoLink) navLogoLink.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); });
+
+    // SEKCJA KICK - PRZYCISK POKAŻ/UKRYJ ODTWARZACZ
+    const toggleEmbedBtn = document.getElementById('toggleEmbedBtn');
+    const embedWrapper = document.getElementById('kickEmbedWrapper');
+
+    if (toggleEmbedBtn && embedWrapper) {
+      toggleEmbedBtn.addEventListener('click', function() {
+        embedWrapper.classList.toggle('active');
+        if (embedWrapper.classList.contains('active')) {
+          this.innerHTML = '<span>📺</span> UKRYJ ODTWARZACZ';
+        } else {
+          this.innerHTML = '<span>📺</span> POKAŻ ODTWARZACZ';
+        }
+      });
+    }
+
+    // STATUS STREAMERA
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const isLive = true;
+
+    if (statusDot && statusText) {
+      if (isLive) {
+        statusDot.className = 'status-dot live';
+        statusText.className = 'status-text live';
+        statusText.textContent = 'NA ŻYWO';
+      } else {
+        statusDot.className = 'status-dot offline';
+        statusText.className = 'status-text offline';
+        statusText.textContent = 'OFFLINE';
+      }
+    }
+
+    /*
+    // Funkcja do integracji z API Kick (po uzyskaniu tokena)
+    async function checkKickStatus() {
+      try {
+        const response = await fetch('https://api.kick.com/public/v1/channels/tojadenis', {
+          headers: { 'Authorization': 'Bearer TWOJ_ACCESS_TOKEN' }
+        });
+        const data = await response.json();
+        const isLive = data.live === true;
+        if (isLive) {
+          statusDot.className = 'status-dot live';
+          statusText.className = 'status-text live';
+          statusText.textContent = 'NA ŻYWO';
+        } else {
+          statusDot.className = 'status-dot offline';
+          statusText.className = 'status-text offline';
+          statusText.textContent = 'OFFLINE';
+        }
+      } catch (error) {
+        console.error('Błąd sprawdzania statusu Kick:', error);
+      }
+    }
+    // setInterval(checkKickStatus, 60000);
+    // checkKickStatus();
+    */
+
+  })();
+</script>
+</body>
+</html>
